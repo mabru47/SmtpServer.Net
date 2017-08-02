@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard1.4;net45</TargetFrameworks>
+    <RootNamespace>Tireless.Net.Mail.Plugins</RootNamespace>
+    <AssemblyName>Tireless.SmtpServerPluginBase</AssemblyName>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>Marlin Brüggemann</Authors>
+    <Company>Tireless Software UG</Company>
+    <Description>Provides the plugin base for Tireless.SmtpServer.Net</Description>
+    <PackageProjectUrl>https://github.com/mabru47/SmtpServer.Net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/mabru47/SmtpServer.Net.git</RepositoryUrl>
+    <Version>0.1.3</Version>
+    <PackageId>Tireless.SmtpServer.Net.PluginBase</PackageId>
+  </PropertyGroup>
+
+</Project>

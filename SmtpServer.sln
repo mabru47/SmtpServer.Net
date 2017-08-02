@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmtpServer", "Server\SmtpServer.csproj", "{2534B873-B539-44A1-A950-D4530B683D64}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmtpServerPluginBase", "PluginBase\SmtpServerPluginBase.csproj", "{DF34FEA2-DBD5-4FB3-9FF3-9FB1C99E92CB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmtpServerExample", "Example\SmtpServerExample.csproj", "{BCCFFB0B-2204-45AA-86FD-F927429AED99}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2534B873-B539-44A1-A950-D4530B683D64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2534B873-B539-44A1-A950-D4530B683D64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2534B873-B539-44A1-A950-D4530B683D64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2534B873-B539-44A1-A950-D4530B683D64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF34FEA2-DBD5-4FB3-9FF3-9FB1C99E92CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF34FEA2-DBD5-4FB3-9FF3-9FB1C99E92CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF34FEA2-DBD5-4FB3-9FF3-9FB1C99E92CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF34FEA2-DBD5-4FB3-9FF3-9FB1C99E92CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCCFFB0B-2204-45AA-86FD-F927429AED99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCCFFB0B-2204-45AA-86FD-F927429AED99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCCFFB0B-2204-45AA-86FD-F927429AED99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCCFFB0B-2204-45AA-86FD-F927429AED99}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

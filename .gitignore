@@ -1,0 +1,7 @@
+**/*.tmp
+**/bin/Debug
+**/bin/Release
+**/obj
+**/.vs
+# Office Temp Files
+~$*
