@@ -1,5 +1,5 @@
 # SmtpServer.Net
-SmtpServer.Net is a simple and high performant open source SMTP-Server for .Net Standard (1.4).
+SmtpServer.Net is a simple and high performant open source SMTP-Server for .Net Standard >=1.4 and .Net >=4.5.
 
 ## Usage
 The following example instantiates a new `SmtpServer` and adds some an example plugin.

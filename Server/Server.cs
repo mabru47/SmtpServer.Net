@@ -28,6 +28,12 @@ namespace Tireless.Net.Mail
 
         private Dictionary<Type, Object> plugins;
 
+        internal ISmtpServerLogger Logger
+        {
+            get;
+            private set;
+        }
+
 
         public Server()
             : this(new ServerSettings())
@@ -39,6 +45,7 @@ namespace Tireless.Net.Mail
             this.Settings = settings;
             this.connections = new List<Connection>();
             this.plugins = new Dictionary<Type, Object>();
+            this.Logger = new DefaultLogger();
         }
 
         private void Inizialize()
@@ -47,21 +54,21 @@ namespace Tireless.Net.Mail
             {
                 var cert = new X509Certificate2(this.Settings.CertificatePath);
                 if (cert.NotAfter < DateTime.UtcNow || cert.NotBefore > DateTime.UtcNow)
-                    Console.WriteLine("WARNING: The given certificate ist not valid!");
+                    this.Logger.LogWarning("The given certificate ist not valid!");
                 else
-                    Console.WriteLine("INFO: Certificate with serial number " + cert.SerialNumber + " loaded");
+                    this.Logger.LogInfo("Certificate with serial number " + cert.SerialNumber + " loaded");
 
                 this.X509Certificate = cert;
             }
             else
             {
-                Console.WriteLine("WARNING: No certificate specified.");
+                this.Logger.LogWarning("No certificate specified.");
             }
 
-            Console.WriteLine("INFO: Temporary mail store: " + this.Settings.TempPath);
+            this.Logger.LogInfo("Temporary mail store: " + this.Settings.TempPath);
             if (Directory.Exists(this.Settings.TempPath) == false)
             {
-                Console.WriteLine("INFO: Creating directory \"" + this.Settings.TempPath + "\" for temporary mail store");
+                this.Logger.LogInfo("Creating directory \"" + this.Settings.TempPath + "\" for temporary mail store");
                 Directory.CreateDirectory(this.Settings.TempPath);
             }
         }
@@ -91,23 +98,23 @@ namespace Tireless.Net.Mail
             tcpSocket.Start();
             TcpClient client = null;
 
-            Console.WriteLine("INFO: Server start listening on " + this.Settings.Endpoint + ":" + port);
+            this.Logger.LogInfo("Server start listening on " + this.Settings.Endpoint + ":" + port);
             while ((client = await tcpSocket.AcceptTcpClientAsync()) != null)
             {
-                Console.WriteLine("INFO: Client endpoint: {0}", client.Client.RemoteEndPoint.ToString());
+                this.Logger.LogInfo("Client endpoint: " + client.Client.RemoteEndPoint.ToString());
 
                 var c = new Connection(this, client);
                 var task = c.HandleClientAsnyc(secure);
                 this.connections.Add(c);
             }
 
-            Console.WriteLine("INFO: Server stopped listening on " + this.Settings.Endpoint + ":" + port);
+            this.Logger.LogInfo("Server stopped listening on " + this.Settings.Endpoint + ":" + port);
         }
 
 
         public async Task AddPluginAsync(IBlacklist blacklistPlugin)
         {
-            Console.WriteLine("INFO: Initializes blacklist plugin \"" + blacklistPlugin.GetType().FullName + "\".");
+            this.Logger.LogInfo("Initializes blacklist plugin \"" + blacklistPlugin.GetType().FullName + "\".");
             if (blacklistPlugin is IInitializable initializable)
                 await initializable.InitializeAsync();
 
@@ -119,12 +126,12 @@ namespace Tireless.Net.Mail
 
             collection.Add(blacklistPlugin);
 
-            Console.WriteLine("INFO: Plugin \"" + blacklistPlugin.GetType().FullName + "\" ready to use.");
+            this.Logger.LogInfo("Plugin \"" + blacklistPlugin.GetType().FullName + "\" ready to use.");
         }
 
         public async Task AddPluginAsync(ICheckMailParams checkMailParamsPlugin)
         {
-            Console.WriteLine("INFO: Initializes CheckMailParamsPlugin \"" + checkMailParamsPlugin.GetType().FullName + "\".");
+            this.Logger.LogInfo("Initializes CheckMailParamsPlugin \"" + checkMailParamsPlugin.GetType().FullName + "\".");
             if (checkMailParamsPlugin is IInitializable initializable)
                 await initializable.InitializeAsync();
 
@@ -136,12 +143,12 @@ namespace Tireless.Net.Mail
 
             collection.Add(checkMailParamsPlugin);
 
-            Console.WriteLine("INFO: Plugin \"" + checkMailParamsPlugin.GetType().FullName + "\" ready to use.");
+            this.Logger.LogInfo("Plugin \"" + checkMailParamsPlugin.GetType().FullName + "\" ready to use.");
         }
 
         public async Task AddPluginAsync(IMailProcessor mailProcessorPlugin)
         {
-            Console.WriteLine("INFO: Initializes MailProcessorPlugin \"" + mailProcessorPlugin.GetType().FullName + "\".");
+            this.Logger.LogInfo("Initializes MailProcessorPlugin \"" + mailProcessorPlugin.GetType().FullName + "\".");
             if (mailProcessorPlugin is IInitializable initializable)
                 await initializable.InitializeAsync();
 
@@ -153,7 +160,7 @@ namespace Tireless.Net.Mail
 
             collection.Add(mailProcessorPlugin);
 
-            Console.WriteLine("INFO: Plugin \"" + mailProcessorPlugin.GetType().FullName + "\" ready to use.");
+            this.Logger.LogInfo("Plugin \"" + mailProcessorPlugin.GetType().FullName + "\" ready to use.");
         }
 
         internal T GetPlugin<T>()
@@ -161,6 +168,12 @@ namespace Tireless.Net.Mail
             if (this.plugins.ContainsKey(typeof(T)))
                 return (T)this.plugins[typeof(T)];
             return default(T);
+        }
+
+
+        public void AddLogger(ISmtpServerLogger logger)
+        {
+            this.Logger = logger ?? throw new ArgumentNullException();
         }
     }
 }

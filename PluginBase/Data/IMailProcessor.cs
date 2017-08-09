@@ -6,6 +6,6 @@ namespace Tireless.Net.Mail.Plugins
 {
     public interface IMailProcessor
     {
-        Task<MailProcessorResult> ProcessAsync(String from, String[] rcpt, Stream data);
+        Task<MailProcessorResult> ProcessAsync(String from, String[] rcpt, Guid emailGuid, Stream data);
     }
 }

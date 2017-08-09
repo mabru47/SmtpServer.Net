@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Tireless.Net.Mail.Plugins;
 using System.IO;
+using System;
 
 namespace Tireless.Net.Mail.Extensions
 {
@@ -19,11 +20,11 @@ namespace Tireless.Net.Mail.Extensions
             this.allPlugins.Add(plugin);
         }
 
-        public async Task<MailProcessorResult> ProcessAsync(string from, string[] rcpt, Stream data)
+        public async Task<MailProcessorResult> ProcessAsync(string from, string[] rcpt, Guid mailGuid, Stream data)
         {
             foreach (var item in this.allPlugins)
             {
-                var r = await item.ProcessAsync(from, rcpt, data);
+                var r = await item.ProcessAsync(from, rcpt, mailGuid, data);
                 if (r.IsError)
                     return r;
             }

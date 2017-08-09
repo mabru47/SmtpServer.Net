@@ -48,9 +48,10 @@ namespace Tireless.Net.Mail.States
                 NewLine = "\r\n"
             })
             {
-                streamWriter.WriteLine("Received: by " + this.Server.Settings.ServiceDomain + " with instance id " + this.Server.Settings.InstanceID);
-                streamWriter.WriteLine("        for <" + String.Join(";", this.mailTo) + ">; " + DateTime.UtcNow.ToString("r"));
-                streamWriter.WriteLine("        from " + this.Connection.RemoteEndPoint);
+                streamWriter.WriteLine("Received: from " + this.host + " (" + this.Connection.RemoteEndPoint + ")");
+                streamWriter.WriteLine(" by " + this.Server.Settings.ServiceDomain + " (" + this.Connection.LocalEndPoint + ") with instance id [" + this.Server.Settings.InstanceID + "]");
+                streamWriter.WriteLine(" for <" + String.Join(";", this.mailTo) + "> ");
+                streamWriter.WriteLine(" queued as [" + this.mailGuid + "];" + DateTime.UtcNow.ToString("r"));
 
 
                 String line;

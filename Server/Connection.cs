@@ -9,6 +9,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Tireless.Net.Mail.Plugins;
 
 namespace Tireless.Net.Mail
 {
@@ -30,6 +31,14 @@ namespace Tireless.Net.Mail
             }
         }
 
+        public IPEndPoint LocalEndPoint
+        {
+            get
+            {
+                return (IPEndPoint)client.Client.LocalEndPoint;
+            }
+        }
+
         public Boolean IsSecureSocket
         {
             get;
@@ -40,6 +49,14 @@ namespace Tireless.Net.Mail
         {
             get;
             private set;
+        }
+
+        private ISmtpServerLogger Logger
+        {
+            get
+            {
+                return this.Server.Logger;
+            }
         }
 
         //----------------------------------------------------------------------//
@@ -86,7 +103,7 @@ namespace Tireless.Net.Mail
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex.GetType() + ": " + ex.Message);
+                        this.Logger.LogError(ex.GetType() + ": " + ex.Message);
                         this.state = null;
                     }
                 } while (this.state != null);
@@ -114,14 +131,14 @@ namespace Tireless.Net.Mail
             cancellationToken.Cancel();
             var line = t1.Result;
 
-            Console.WriteLine("R: " + (line ?? "NULL"));
+            this.Logger.LogRawSocketIn((line ?? "NULL"));
             if (line == null) throw new IOException("Line was null.");
             return line;
         }
 
         public async Task WriteLineAsync(String line)
         {
-            Console.WriteLine("S: " + line);
+            this.Logger.LogRawSocketOut(line);
             var data = Encoding.UTF8.GetBytes(line + "\r\n");
             await (this.sslStream ?? (Stream)this.networkStream).WriteAsync(data, 0, data.Length);
         }

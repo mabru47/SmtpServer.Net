@@ -61,7 +61,7 @@ namespace Tireless.Net.Mail.Models
             this.ServiceDomain = "mx.example.org";
             this.ServiceName = "ExampleService";
             this.InstanceID = Guid.NewGuid().ToString();
-            this.TempPath = Path.GetTempPath() + "mails\\";
+            this.TempPath = Path.GetTempPath() + "mails" + Path.DirectorySeparatorChar;
         }
     }
 }

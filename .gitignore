@@ -3,5 +3,7 @@
 **/bin/Release
 **/obj
 **/.vs
+*.csproj.user
+
 # Office Temp Files
 ~$*

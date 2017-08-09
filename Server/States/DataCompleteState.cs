@@ -40,7 +40,7 @@ namespace Tireless.Net.Mail.States
                 if (this.MailProcessorPlugin == null)
                     return new CloseState("550 Requested action not taken: mailbox plugin unavailable.", base.Connection);
 
-                var processMailResult = await this.MailProcessorPlugin.ProcessAsync(this.mailFrom, this.mailTo.ToArray(), this.emailStream);
+                var processMailResult = await this.MailProcessorPlugin.ProcessAsync(this.mailFrom, this.mailTo.ToArray(), this.mailGuid, this.emailStream);
                 if (processMailResult != null && processMailResult.IsError == true)
                     return new CloseState(processMailResult.ErrorText, base.Connection);
 

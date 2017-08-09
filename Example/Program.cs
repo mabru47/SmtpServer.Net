@@ -11,7 +11,7 @@ namespace SmtpServerExample
 {
     class ExampleMailProcessor : IMailProcessor
     {
-        public async Task<MailProcessorResult> ProcessAsync(string from, string[] rcpt, Stream data)
+        public async Task<MailProcessorResult> ProcessAsync(string from, string[] rcpt, Guid mailGuid, Stream data)
         {
             var stringData = await new StreamReader(data).ReadToEndAsync();
             Console.WriteLine("Total length: " + stringData.Length);
