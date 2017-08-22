@@ -24,7 +24,7 @@ namespace SmtpServerExample
     {
         static void Main(string[] args)
         {
-            var server = new Server(new ServerSettings()
+            var server = new SmtpServer(new ServerSettings()
             {
                 Endpoint = IPAddress.Parse("127.0.0.1"),
                 ServiceName = "ExampleService",

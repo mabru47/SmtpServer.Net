@@ -43,7 +43,7 @@ namespace Tireless.Net.Mail.States
                 streamBuffer = new FileStream(file, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.ReadWrite, 4096, FileOptions.RandomAccess | FileOptions.DeleteOnClose);
             }
 
-            using (var streamWriter = new StreamWriter(streamBuffer, Encoding.UTF8, 4096, true)
+            using (var streamWriter = new StreamWriter(streamBuffer, new UTF8Encoding(false), 4096, true)
             {
                 NewLine = "\r\n"
             })

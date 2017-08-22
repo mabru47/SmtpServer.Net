@@ -22,7 +22,7 @@ namespace Tireless.Net.Mail.States
         public override async Task<StateBase> HandleStateAsync()
         {
             if (!fromSslUpgrade)
-                await base.Connection.WriteLineAsync("220 Mail47 SMTP Service. Ready for action at " + DateTime.UtcNow.ToString("r"));
+                await base.Connection.WriteLineAsync("220 " + base.Server.Settings.ServiceDomain + " " + base.Server.Settings.ServiceName + ". Ready for action at " + DateTime.UtcNow.ToString("r"));
             //else
             //    await base.Connection.WriteLineAsync("250 OK");
 

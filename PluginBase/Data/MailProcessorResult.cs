@@ -4,6 +4,13 @@ namespace Tireless.Net.Mail.Plugins
 {
     public class MailProcessorResult
     {
+        public static readonly MailProcessorResult Okay = new MailProcessorResult();
+
+        public static MailProcessorResult FromError(int code, String description)
+        {
+            return new MailProcessorResult(code + " " + description);
+        }
+
         public Boolean IsError
         {
             get
@@ -17,12 +24,12 @@ namespace Tireless.Net.Mail.Plugins
             get;
             set;
         }
-        
-        public MailProcessorResult()
+
+        private MailProcessorResult()
         {
         }
 
-        public MailProcessorResult(String error)
+        private MailProcessorResult(String error)
         {
             this.ErrorText = error;
         }

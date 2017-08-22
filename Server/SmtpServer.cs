@@ -10,7 +10,7 @@ using System.IO;
 
 namespace Tireless.Net.Mail
 {
-    public class Server
+    public class SmtpServer
     {
         public ServerSettings Settings
         {
@@ -35,12 +35,12 @@ namespace Tireless.Net.Mail
         }
 
 
-        public Server()
+        public SmtpServer()
             : this(new ServerSettings())
         {
         }
 
-        public Server(ServerSettings settings)
+        public SmtpServer(ServerSettings settings)
         {
             this.Settings = settings;
             this.connections = new List<Connection>();
@@ -101,7 +101,7 @@ namespace Tireless.Net.Mail
             this.Logger.LogInfo("Server start listening on " + this.Settings.Endpoint + ":" + port);
             while ((client = await tcpSocket.AcceptTcpClientAsync()) != null)
             {
-                this.Logger.LogInfo("Client endpoint: " + client.Client.RemoteEndPoint.ToString());
+                this.Logger.LogInfo("Client connected: " + client.Client.RemoteEndPoint.ToString() + " (Total: " + this.connections.Count + ")");
 
                 var c = new Connection(this, client);
                 var task = c.HandleClientAsnyc(secure);
@@ -111,6 +111,10 @@ namespace Tireless.Net.Mail
             this.Logger.LogInfo("Server stopped listening on " + this.Settings.Endpoint + ":" + port);
         }
 
+        internal void ConnectionClosed(Connection connection)
+        {
+            this.connections.Remove(connection);
+        }
 
         public async Task AddPluginAsync(IBlacklist blacklistPlugin)
         {

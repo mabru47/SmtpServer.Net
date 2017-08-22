@@ -9,7 +9,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        var server = new Server(new ServerSettings()
+        var server = new SmtpServer(new ServerSettings()
         {
             Endpoint = IPAddress.Parse("127.0.0.1"),
             ServiceName = "ExampleService",
@@ -34,7 +34,7 @@ class ExampleMailProcessor : IMailProcessor
         var stringData = await new StreamReader(data).ReadToEndAsync();
         Console.WriteLine("Total length: " + stringData.Length);
 
-        return new MailProcessorResult();
+        return MailProcessorResult.Okay;
     }
 }
 ``` 

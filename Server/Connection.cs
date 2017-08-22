@@ -45,7 +45,7 @@ namespace Tireless.Net.Mail
             private set;
         }
 
-        public Server Server
+        public SmtpServer Server
         {
             get;
             private set;
@@ -61,7 +61,7 @@ namespace Tireless.Net.Mail
 
         //----------------------------------------------------------------------//
 
-        public Connection(Server server, TcpClient client)
+        public Connection(SmtpServer server, TcpClient client)
         {
             this.Server = server;
             this.client = client;
@@ -115,6 +115,7 @@ namespace Tireless.Net.Mail
 #else
                 this.client.Dispose();
 #endif
+                this.Server.ConnectionClosed(this);    
             }
         }
 

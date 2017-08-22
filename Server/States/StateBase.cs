@@ -17,7 +17,7 @@ namespace Tireless.Net.Mail.States
             get;
             private set;
         }
-        protected Server Server
+        protected SmtpServer Server
         {
             get
             {

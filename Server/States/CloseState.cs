@@ -21,7 +21,7 @@ namespace Tireless.Net.Mail.States
             if (!String.IsNullOrEmpty(this.errorText))
                 await base.Connection.WriteLineAsync(this.errorText);
             else
-                await base.Connection.WriteLineAsync("221 Mail47.io Service closing transmission channel");
+                await base.Connection.WriteLineAsync("221 Service closing transmission channel");
 
             return null;
         }

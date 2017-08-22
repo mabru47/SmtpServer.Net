@@ -4,13 +4,13 @@
     <AssemblyName>Tireless.SmtpServer.Net</AssemblyName>
     <RootNamespace>Tireless.Net.Mail</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>0.1.6</Version>
+    <Version>0.1.8</Version>
     <Authors>Marlin Brüggemann</Authors>
     <Company>Tireless Software UG</Company>
     <Description>.Net Standard and .Net 4.5 cross-platform smtp server. The behavior has to be adapted using plugins.</Description>
     <PackageProjectUrl>https://github.com/mabru47/SmtpServer.Net</PackageProjectUrl>
-    <AssemblyVersion>0.1.6.0</AssemblyVersion>
-    <FileVersion>0.1.6.0</FileVersion>
+    <AssemblyVersion>0.1.8.0</AssemblyVersion>
+    <FileVersion>0.1.8.0</FileVersion>
     <PackageLicenseUrl>https://github.com/mabru47/SmtpServer.Net/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
